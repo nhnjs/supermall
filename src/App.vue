@@ -1,17 +1,20 @@
 <template>
     <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png" />
-        <HelloWorld msg="Welcome to Your Vue.js App" />
+        <router-view></router-view>
+        <Maintabbar />
     </div>
 </template>
 
 <script>
+import Maintabbar from "components/content/mainTabbar/Maintabbar";
 export default {
     name: "App",
-    components: {},
+    components: {
+        Maintabbar,
+    },
 };
 </script>
 
-<style>
+<style scoped>
 @import "./assets/css/base.css";
 </style>
