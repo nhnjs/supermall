@@ -8,7 +8,8 @@
     <home-swiper :banners="banners"></home-swiper>
     <recommend-view :recommends="recommends"></recommend-view>
     <feature-view />
-    <tab-control :titles="['流行', '新款', '精选']" class="tab-control" />
+    <tab-control :titles="['流行', '新款', '精选']" class="tab-control" @tabClick="tabClick" />
+    <goods-list :goods="showGoods" />
     <ul>
       <li>配置</li>
       <li>配置</li>
@@ -72,6 +73,7 @@ import FeatureView from './childcom/FeatureView.vue'
 
 import NavBar from 'components/common/navbar/NavBar.vue'
 import TabControl from 'components/content/tabControl/TabControl.vue'
+import GoodsList from 'components/content/goods/GoodsList.vue'
 
 import { getMultiData, getHomeGoods } from 'network/home'
 
@@ -85,10 +87,19 @@ export default {
         pop: { page: 0, list: [] },
         new: { page: 0, list: [] },
         sell: { page: 0, list: [] }
-      }
+      },
+      currentType: 'pop'
+    }
+  },
+  computed: {
+    showGoods() {
+      return this.goods[this.currentType].list
     }
   },
   methods: {
+    /**
+     * 请求相关方法
+     */
     //获取多个数据
     getHomeMultiData() {
       getMultiData().then((res) => {
@@ -100,9 +111,27 @@ export default {
     getHomeGoods(type) {
       const page = this.goods[type].page + 1
       getHomeGoods(type, page).then((res) => {
-        this.goods[type].list = this.goods[type].list.push(...res.data.list)
+        console.log(res)
+        this.goods[type].list.push(...res.data.list)
         this.goods[type].page = page
       })
+    },
+    /**
+     * tabControl方法
+     */
+    tabClick(index) {
+      switch (index) {
+        case 0:
+          this.currentType = 'pop'
+          break
+
+        case 1:
+          this.currentType = 'new'
+          break
+        case 2:
+          this.currentType = 'sell'
+          break
+      }
     }
   },
 
@@ -111,7 +140,8 @@ export default {
     HomeSwiper,
     RecommendView,
     FeatureView,
-    TabControl
+    TabControl,
+    GoodsList
   },
   created() {
     //请求多个数据
@@ -142,5 +172,6 @@ export default {
   position: sticky;
   top: 44px;
   background-color: #fff;
+  z-index: 9;
 }
 </style>
