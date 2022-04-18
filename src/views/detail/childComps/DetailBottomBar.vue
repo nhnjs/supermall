@@ -28,6 +28,7 @@ export default {
     // 1.加入购物车
     addCar() {
       this.$router.push('/cart')
+      console.log(11)
     }
   }
 }
