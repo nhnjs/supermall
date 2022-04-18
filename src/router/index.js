@@ -11,35 +11,34 @@ const Detail = () => import('../views/detail/Detail')
 Vue.use(VueRouter)
 
 // 2.创建router
-const routes = [
-  {
-    path: '',
-    redirect: '/home'
-  },
-  {
-    path: '/home',
-    component: Home
-  },
-  {
-    path: '/category',
-    component: Category
-  },
-  {
-    path: '/cart',
-    component: Cart
-  },
-  {
-    path: '/profile',
-    component: Profile
-  },
-  {
-    path: '/detail/:iid',
-    component: Detail
-  }
+const routes = [{
+        path: '',
+        redirect: '/home'
+    },
+    {
+        path: '/home',
+        component: Home
+    },
+    {
+        path: '/category',
+        component: Category
+    },
+    {
+        path: '/cart',
+        component: Cart
+    },
+    {
+        path: '/profile',
+        component: Profile
+    },
+    {
+        path: '/detail/:iid',
+        component: Detail
+    }
 ]
 const router = new VueRouter({
-  routes,
-  mode: 'history'
+    routes,
+    mode: 'history'
 })
 
 
